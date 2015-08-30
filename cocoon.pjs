@@ -1,0 +1,43 @@
+int n = 8;
+int step = 7;
+int count = 0;
+float []goal = new float[n];
+float []y    = new float[n];
+void setup(){
+  size(700,300);
+  background(0);
+  stroke(250,20);
+  noFill();
+　　frameRate(16);
+}
+void draw(){
+  if(count == 0){
+    if(0.5 < random(1)){
+      for(int i = 0; i < n; i++){
+        goal[i] = random(y[i],100);
+      }
+    }
+    else{
+      for(int i = 0; i < n; i++){
+        goal[i] = random(-100,y[i]);
+      }
+    }
+  }
+  beginShape();
+    curveVertex(0, height/2);
+    for(int i = 0; i < n; i++){
+      curveVertex(width/(n-1)*i, height/2 + y[i]   - (y[i]   - goal[i]  )   / step*count);
+    }
+    curveVertex(width, height/2);
+  endShape();
+  count++;
+  if(count == step){
+    count =0;
+    for(int i = 0; i < n; i++){
+      y[i] = goal[i];
+    }
+  }
+}
+void mousePressed(){
+  background(0);
+}
